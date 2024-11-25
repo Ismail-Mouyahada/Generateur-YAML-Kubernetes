@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-yaml-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-yaml-generator
+  template:
+    metadata:
+      labels:
+        app: k8s-yaml-generator
+    spec:
+      containers:
+        - name: k8s-yaml-generator
+          image: your-dockerhub-username/k8s-yaml-generator:${{ github.sha }}
+          ports:
+            - containerPort: 80
