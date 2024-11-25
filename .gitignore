@@ -24,4 +24,3 @@ dist-ssr
 *.sw?
 src/components
 src/types
-src/utils
