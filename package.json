@@ -2,7 +2,7 @@
   "name": "k8s-yaml-generator",
   "private": true,
   "version": "1.0.0",
-  "homepage":"https://github.com/Ismail-Mouyahada/Generateur-YAML-Kubernetes",
+  "homepage":"https://Ismail-Mouyahada.github.io/Generateur-YAML-Kubernetes",
   "type": "module",
   "scripts": {
     "dev": "vite",
