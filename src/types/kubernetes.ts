@@ -27,7 +27,7 @@ export interface ResourceConfig {
       memory: string;
     };
   };
-  [key: string]: any; // Add index signature for dynamic access
+  [key: string]: unknown; // Add index signature for dynamic access
 }
 
 export interface FormField {

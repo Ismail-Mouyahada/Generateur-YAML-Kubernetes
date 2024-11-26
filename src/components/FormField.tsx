@@ -1,13 +1,15 @@
-import React from 'react';
-import { FormField as FormFieldType, ResourceConfig } from '../types/kubernetes';
+ 
+import { FormField as FormFieldType } from '../types/kubernetes';
 
 interface Props {
   field: FormFieldType;
-  value: any;
-  onChange: (value: any) => void;
+  value: string | number;  // Value type based on field.type (string for text/select, number for number)
+  onChange: (value: string | number) => void; // onChange type also depends on field.type
 }
 
 export default function FormField({ field, value, onChange }: Props) {
+
+ 
   const baseClassName = "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500";
 
   switch (field.type) {

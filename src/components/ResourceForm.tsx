@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState, useEffect } from 'react';
 import { AlertCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -14,6 +14,7 @@ import YAMLActions from './YAMLActions';
 
 SyntaxHighlighter.registerLanguage('yaml', yaml);
 
+// Initial config with type annotations
 const initialConfig: ResourceConfig = {
   resourceType: 'Deployment',
   name: '',
@@ -27,17 +28,20 @@ const initialConfig: ResourceConfig = {
 };
 
 export default function ResourceForm() {
+  // States with proper types
   const [formData, setFormData] = useState<ResourceConfig>(initialConfig);
   const [generatedYAML, setGeneratedYAML] = useState<string>('');
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
-  const handleFieldChange = (key: string, value: any) => {
+  // Handle field change with correct types
+  const handleFieldChange = (key: keyof ResourceConfig, value: string | number) => {
     setFormData((prev) => ({
       ...prev,
       [key]: value,
     }));
   };
 
+  // Handle template selection with proper types
   const handleTemplateSelect = (template: Partial<ResourceConfig>) => {
     setFormData((prev) => ({
       ...prev,
@@ -50,6 +54,7 @@ export default function ResourceForm() {
     toast.success('Template applied successfully');
   };
 
+  // Function to generate and validate the YAML based on the current formData
   const generateAndValidate = (config: ResourceConfig) => {
     const errors = validateResource(config);
     setValidationErrors(errors);
@@ -60,7 +65,8 @@ export default function ResourceForm() {
     }
   };
 
-  React.useEffect(() => {
+  // Effect hook to trigger YAML generation when formData changes
+  useEffect(() => {
     generateAndValidate(formData);
   }, [formData]);
 
@@ -95,8 +101,8 @@ export default function ResourceForm() {
                 <FormField
                   key={field.key}
                   field={field}
-                  value={formData[field.key as keyof ResourceConfig]}
-                  onChange={(value) => handleFieldChange(field.key, value)}
+                  value={formData[field.key as keyof ResourceConfig] as string | number}   
+                  onChange={(value) => handleFieldChange(field.key as keyof ResourceConfig, value)}
                 />
               ) : null
             ))}
