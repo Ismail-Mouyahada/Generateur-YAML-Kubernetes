@@ -4,7 +4,7 @@ Here's the cleaned-up and organized version of your project description:
 
 ### **Project Description: Kubernetes YAML Generator**
 
-![alt text](screens/image.png)
+![image](https://github.com/user-attachments/assets/8837bb24-7ed9-40fa-98de-03aa9548d936)
 
 **Overview:**  
 The Kubernetes YAML Generator is a web application built with **React** and **TypeScript**. It streamlines the creation of Kubernetes configuration files, allowing developers and DevOps teams to quickly generate YAML manifests for deploying, managing, and scaling containerized applications.
