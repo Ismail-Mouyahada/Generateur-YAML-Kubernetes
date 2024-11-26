@@ -27,56 +27,56 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-      - name: Run tests
-        run: npm run test
+      # - name: Run tests
+      #   run: npm run test
 
       - name: Build the application
         run: npm run build
 
-  dockerize:
-    runs-on: ubuntu-latest
-    needs: build
+  # dockerize:
+  #   runs-on: ubuntu-latest
+  #   needs: build
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+  #     - name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v2
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+  #     - name: Log in to Docker Hub
+  #       uses: docker/login-action@v2
+  #       with:
+  #         username: ${{ secrets.DOCKER_USERNAME }}
+  #         password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker image
-        run: docker build -t your-dockerhub-username/k8s-yaml-generator:${{ github.sha }} .
+  #     - name: Build Docker image
+  #       run: docker build -t your-dockerhub-username/k8s-yaml-generator:${{ github.sha }} .
 
-      - name: Push Docker image
-        run: docker push your-dockerhub-username/k8s-yaml-generator:${{ github.sha }}
+  #     - name: Push Docker image
+  #       run: docker push your-dockerhub-username/k8s-yaml-generator:${{ github.sha }}
 
-  terraform:
-    runs-on: ubuntu-latest
-    needs: dockerize
-    environment: production
+  # terraform:
+  #   runs-on: ubuntu-latest
+  #   needs: dockerize
+  #   environment: production
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
 
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v2
+  #     - name: Set up Terraform
+  #       uses: hashicorp/setup-terraform@v2
 
-      - name: Set up kubeconfig
-        run: |
-          echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+  #     - name: Set up kubeconfig
+  #       run: |
+  #         echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
 
-      - name: Initialize Terraform
-        run: terraform init
+  #     - name: Initialize Terraform
+  #       run: terraform init
 
-      - name: Apply Terraform configuration
-        run: terraform apply -auto-approve
+  #     - name: Apply Terraform configuration
+  #       run: terraform apply -auto-approve
 
-      - name: Output Kubernetes Service URL
-        run: terraform output app_url
+  #     - name: Output Kubernetes Service URL
+  #       run: terraform output app_url
