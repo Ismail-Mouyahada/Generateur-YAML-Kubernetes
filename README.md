@@ -1,6 +1,4 @@
-Here's the cleaned-up and organized version of your project description:
 
----
 
 ### **Project Description: Kubernetes YAML Generator**
 
